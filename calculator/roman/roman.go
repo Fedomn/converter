@@ -4,6 +4,7 @@ import (
 	"container/list"
 	"fedomn/converter/util"
 	"fmt"
+	"reflect"
 	"sort"
 )
 
@@ -223,6 +224,25 @@ func (c Calculator) R2D(symbols []Symbol) (DecimalValue, error) {
 	}
 
 	return resVal, nil
+}
+
+func (c Calculator) CalcDecimal(symbols interface{}) (interface{}, error) {
+	symbolsVal := reflect.ValueOf(symbols)
+	if symbolsVal.Kind() != reflect.Slice {
+		return 0, fmt.Errorf("symbols type must be slice")
+	}
+
+	romanSymbols := make([]Symbol, symbolsVal.Len())
+	for i := 0; i < symbolsVal.Len(); i++ {
+		symbol := symbolsVal.Index(i)
+		symbolStr := symbol.String()
+		if symbol.Kind() != reflect.String {
+			return 0, fmt.Errorf("symbol: %v type must be string", symbolStr)
+		}
+		romanSymbols[i] = Symbol(symbolStr)
+	}
+
+	return c.R2D(romanSymbols)
 }
 
 // Decimal to Roman

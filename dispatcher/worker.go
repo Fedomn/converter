@@ -45,9 +45,7 @@ func (w Worker) Start() {
 			select {
 			case job := <-w.jobInputQueue:
 				output := w.processor.Process(job.Context)
-				if output != "" {
-					w.jobOutputQueue <- JobOutput{job.Context, output, w.jobType}
-				}
+				w.jobOutputQueue <- JobOutput{job.Context, output, w.jobType}
 			case <-w.quit:
 				fmt.Printf("worker: %+v stop ok!\n", w.jobType)
 				return

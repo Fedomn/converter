@@ -14,13 +14,13 @@ func init() {
 	DefaultGuider.Use(GoodsHandler{})
 	DefaultGuider.Use(HowMuchHandler{})
 	DefaultGuider.Use(HowManyUnitHandler{})
+	DefaultGuider.SetCalculator(roman.DefaultCalculator)
 }
 
 func initGuider() Guider {
 	return Guider{
-		Alias:      make(Alias),
-		Goods:      make(Goods),
-		Handlers:   make([]Handler, 0),
-		Calculator: roman.DefaultCalculator,
+		Alias:    make(Alias),
+		Goods:    make(Goods),
+		Handlers: make([]Handler, 0),
 	}
 }

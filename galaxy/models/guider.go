@@ -42,3 +42,7 @@ func (g *Guider) Handle(context string) HandlerRsp {
 	}
 	return HandlerRsp{Err: UnknownErr}
 }
+
+func (g *Guider) SetCalculator(c calculator.Calculator) {
+	g.Calculator = c
+}

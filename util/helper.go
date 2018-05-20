@@ -1,6 +1,7 @@
 package util
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"os/signal"
@@ -90,4 +91,21 @@ func GracefulExit(signals ...os.Signal) {
 	}
 	signal.Notify(sig, signals...)
 	<-sig
+}
+
+func ParseInputFile(filePath string) []string {
+	ifs := make([]string, 0)
+	fd, err := os.Open(filePath)
+	if err != nil {
+		fmt.Println("input file not exist")
+		os.Exit(1)
+	}
+	scanner := bufio.NewScanner(fd)
+	scanner.Split(bufio.ScanLines)
+	for scanner.Scan() {
+		if scanner.Text() != "" {
+			ifs = append(ifs, scanner.Text())
+		}
+	}
+	return ifs
 }

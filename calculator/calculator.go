@@ -2,6 +2,6 @@ package calculator
 
 type (
 	Calculator interface {
-		CalcDecimal(symbols interface{}) (interface{}, error)
+		CalcDecimal(symbols interface{}) (int, error)
 	}
 )

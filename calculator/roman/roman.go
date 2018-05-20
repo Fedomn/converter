@@ -226,7 +226,7 @@ func (c Calculator) R2D(symbols []Symbol) (DecimalValue, error) {
 	return resVal, nil
 }
 
-func (c Calculator) CalcDecimal(symbols interface{}) (interface{}, error) {
+func (c Calculator) CalcDecimal(symbols interface{}) (int, error) {
 	symbolsVal := reflect.ValueOf(symbols)
 	if symbolsVal.Kind() != reflect.Slice {
 		return 0, fmt.Errorf("symbols type must be slice")
@@ -241,8 +241,8 @@ func (c Calculator) CalcDecimal(symbols interface{}) (interface{}, error) {
 		}
 		romanSymbols[i] = Symbol(symbolStr)
 	}
-
-	return c.R2D(romanSymbols)
+	value, err := c.R2D(romanSymbols)
+	return int(value), err
 }
 
 // Decimal to Roman

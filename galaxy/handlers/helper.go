@@ -5,6 +5,14 @@ import (
 	"strings"
 )
 
+func convertAliasMapSymbol(alias []AliasSymbol, g *Guider) []AliasMapSymbol {
+	mapSymbols := make([]AliasMapSymbol, 0)
+	for _, each := range alias {
+		mapSymbols = append(mapSymbols, g.Alias[each])
+	}
+	return mapSymbols
+}
+
 func calcAliasDecimal(aliasStr string, g *Guider) (int, error) {
 	aliasAry := strings.Split(aliasStr, " ")
 
@@ -14,6 +22,6 @@ func calcAliasDecimal(aliasStr string, g *Guider) (int, error) {
 	}
 
 	// 计算组合十进制数
-	mapSymbols := g.ConvertAliasMapSymbol(alias)
+	mapSymbols := convertAliasMapSymbol(alias, g)
 	return g.Calculator.CalcDecimal(mapSymbols)
 }

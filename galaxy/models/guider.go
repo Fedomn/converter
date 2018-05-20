@@ -25,14 +25,6 @@ type (
 	}
 )
 
-func (g *Guider) ConvertAliasMapSymbol(alias []AliasSymbol) []AliasMapSymbol {
-	mapSymbols := make([]AliasMapSymbol, 0)
-	for _, each := range alias {
-		mapSymbols = append(mapSymbols, g.Alias[each])
-	}
-	return mapSymbols
-}
-
 func (g *Guider) Use(handlers ...Handler) {
 	g.Handlers = append(g.Handlers, handlers...)
 }

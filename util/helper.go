@@ -2,9 +2,12 @@ package util
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
 	"path/filepath"
 	"reflect"
 	"runtime"
+	"syscall"
 	"testing"
 )
 
@@ -77,4 +80,14 @@ func FindBy(source interface{}, fn validator) (interface{}, error) {
 		}
 	}
 	return nil, nil
+}
+
+func GracefulExit(signals ...os.Signal) {
+	defer fmt.Println("converter exit: ByeBye!")
+	sig := make(chan os.Signal, 1)
+	if len(signals) == 0 {
+		signals = append(signals, os.Interrupt, syscall.SIGTERM)
+	}
+	signal.Notify(sig, signals...)
+	<-sig
 }

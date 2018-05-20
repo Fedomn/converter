@@ -6,7 +6,7 @@ import (
 	. "fedomn/converter/processor/galaxy/models"
 )
 
-var DefaultGuider Guider
+var DefaultGuider *Guider
 
 func init() {
 	DefaultGuider = initGuider()
@@ -17,8 +17,8 @@ func init() {
 	DefaultGuider.SetCalculator(roman.DefaultCalculator)
 }
 
-func initGuider() Guider {
-	return Guider{
+func initGuider() *Guider {
+	return &Guider{
 		Alias:    make(Alias),
 		Goods:    make(Goods),
 		Handlers: make([]Handler, 0),

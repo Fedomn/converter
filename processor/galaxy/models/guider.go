@@ -46,3 +46,11 @@ func (g *Guider) Handle(context string) HandlerRsp {
 func (g *Guider) SetCalculator(c calculator.Calculator) {
 	g.Calculator = c
 }
+
+func (g *Guider) Process(context string) (input, output string) {
+	rsp := g.Handle(context)
+	if rsp.Err != nil {
+		return context, rsp.Err.Error()
+	}
+	return context, rsp.Res
+}

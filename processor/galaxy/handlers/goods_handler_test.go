@@ -1,7 +1,7 @@
 package handlers_test
 
 import (
-	. "fedomn/converter/galaxy/models"
+	. "fedomn/converter/processor/galaxy/models"
 	. "fedomn/converter/util"
 	"fmt"
 	"testing"

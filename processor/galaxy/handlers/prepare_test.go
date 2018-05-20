@@ -2,8 +2,8 @@ package handlers_test
 
 import (
 	"fedomn/converter/calculator/roman"
-	. "fedomn/converter/galaxy/handlers"
-	. "fedomn/converter/galaxy/models"
+	. "fedomn/converter/processor/galaxy/handlers"
+	. "fedomn/converter/processor/galaxy/models"
 	"os"
 	"testing"
 )

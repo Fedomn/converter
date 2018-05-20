@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	. "fedomn/converter/galaxy/models"
+	. "fedomn/converter/processor/galaxy/models"
 	"strings"
 )
 

@@ -40,7 +40,6 @@ func newWorker(p processor.Processor) Worker {
 }
 
 func (w Worker) Start() {
-	fmt.Println("worker start")
 	go func() {
 		for {
 			select {

@@ -26,8 +26,8 @@ func parseArgsAndFile() {
 
 func outputConsole() {
 	go func() {
-		galaxyOutputQueue := DefaultDispatcher.AcquireOutput(GalaxyJob)
-		for output := range galaxyOutputQueue {
+		for {
+			output := DefaultDispatcher.AcquireOutput(GalaxyJob)
 			if output.Output == "" {
 				fmt.Printf("Input Command: %s\n\n", output.Input)
 			} else {

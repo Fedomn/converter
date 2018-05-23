@@ -33,8 +33,8 @@ type (
 func newWorker(p processor.Processor) Worker {
 	return Worker{
 		processor:      p,
-		jobInputQueue:  make(JobInputQueue),
-		jobOutputQueue: make(JobOutputQueue),
+		jobInputQueue:  make(JobInputQueue, 10),
+		jobOutputQueue: make(JobOutputQueue, 10),
 		quit:           make(chan bool),
 	}
 }

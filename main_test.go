@@ -8,7 +8,7 @@ import (
 )
 
 func TestGalaxyGuider(t *testing.T) {
-	var tests = []struct {
+	var baseInfo = []struct {
 		input  string
 		output string
 	}{
@@ -19,26 +19,33 @@ func TestGalaxyGuider(t *testing.T) {
 		{"glob glob Silver is 34 Credits", ""},
 		{"glob prok Gold is 57800 Credits", ""},
 		{"pish pish Iron is 3910 Credits", ""},
-		{"how much is pish tegj glob glob ?", "pish tegj glob glob is 42"},
-		{"how many Credits is glob prok Silver ?", "glob prok Silver is 68 Credits"},
-		{"how many Credits is glob prok Gold ?", "glob prok Gold is 57800 Credits"},
-		{"how many Credits is glob prok Iron ?", "glob prok Iron is 782 Credits"},
-		{"how much wood could a woodchuck chuck if a woodchuck could chuck wood ?", "I have no idea what you are talking about"},
+	}
+
+	var tests = map[string]string{
+		"how much is pish tegj glob glob ?":                                       "pish tegj glob glob is 42",
+		"how many Credits is glob prok Silver ?":                                  "glob prok Silver is 68 Credits",
+		"how many Credits is glob prok Gold ?":                                    "glob prok Gold is 57800 Credits",
+		"how many Credits is glob prok Iron ?":                                    "glob prok Iron is 782 Credits",
+		"how much wood could a woodchuck chuck if a woodchuck could chuck wood ?": "I have no idea what you are talking about",
 	}
 
 	DefaultDispatcher.Start()
 
+	for _, info := range baseInfo {
+		DefaultDispatcher.AddJob(JobInput{GalaxyJob, info.input})
+		// acquire会阻塞 直到有一个job处理完
+		DefaultDispatcher.AcquireOutput(GalaxyJob)
+	}
+
 	go func() {
-		for _, tt := range tests {
-			DefaultDispatcher.AddJob(JobInput{GalaxyJob, tt.input})
+		for key := range tests {
+			DefaultDispatcher.AddJob(JobInput{GalaxyJob, key})
 		}
 	}()
 
-	outputQueue := DefaultDispatcher.AcquireOutput(GalaxyJob)
-	for _, tt := range tests {
-		msg := fmt.Sprintf("input : %s", tt.input)
-		output := <-outputQueue
-		Equals(t, msg, tt.input, output.Input)
-		Equals(t, msg, tt.output, output.Output)
+	for i := 0; i < len(tests); i++ {
+		output := DefaultDispatcher.AcquireOutput(GalaxyJob)
+		Equals(t, fmt.Sprintf("input: %s", output.Input), tests[output.Input], output.Output)
+		fmt.Printf("\033[32minput\033[0m: %s  \033[32moutput\033[0m: %s\n", output.Input, output.Output)
 	}
 }

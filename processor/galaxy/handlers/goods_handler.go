@@ -19,7 +19,7 @@ func (GoodsHandler) Validate(context string, g *Guider) error {
 	findAry := goodsRegexp.FindStringSubmatch(context)
 	aliasAry := strings.Split(findAry[1], " ")
 	for _, each := range aliasAry {
-		if _, ok := g.Alias[AliasSymbol(each)]; !ok {
+		if _, ok := g.LoadAlias(AliasSymbol(each)); !ok {
 			return UnknownErr
 		}
 	}
@@ -52,7 +52,7 @@ func (gh GoodsHandler) Handle(context string, g *Guider) HandlerRsp {
 		Unit:   goodsUnitSymbol,
 	}
 
-	g.Goods[goodsSymbol] = info
+	g.StoreGoods(goodsSymbol, info)
 
 	return HandlerRsp{Context: context}
 }

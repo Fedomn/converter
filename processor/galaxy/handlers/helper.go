@@ -8,7 +8,8 @@ import (
 func convertAliasMapSymbol(alias []AliasSymbol, g *Guider) []AliasMapSymbol {
 	mapSymbols := make([]AliasMapSymbol, 0)
 	for _, each := range alias {
-		mapSymbols = append(mapSymbols, g.Alias[each])
+		value, _ := g.LoadAlias(AliasSymbol(each))
+		mapSymbols = append(mapSymbols, value)
 	}
 	return mapSymbols
 }

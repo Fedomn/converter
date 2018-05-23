@@ -44,7 +44,8 @@ func TestGoodsHandlerHandle(t *testing.T) {
 		if handleRsp.Err != nil {
 			Equals(t, msg, tt.wat, handleRsp.Err)
 		} else {
-			Equals(t, msg, tt.wat, guilder.Goods[tt.goodsSymbol])
+			info, _ := guilder.LoadGoods(tt.goodsSymbol)
+			Equals(t, msg, tt.wat, info)
 		}
 	}
 }

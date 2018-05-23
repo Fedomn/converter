@@ -4,6 +4,7 @@ import (
 	"fedomn/converter/calculator/roman"
 	. "fedomn/converter/processor/galaxy/handlers"
 	. "fedomn/converter/processor/galaxy/models"
+	"sync"
 )
 
 var DefaultGuider *Guider
@@ -19,8 +20,8 @@ func init() {
 
 func initGuider() *Guider {
 	return &Guider{
-		Alias:    make(Alias),
-		Goods:    make(Goods),
+		Alias:    sync.Map{},
+		Goods:    sync.Map{},
 		Handlers: make([]Handler, 0),
 	}
 }

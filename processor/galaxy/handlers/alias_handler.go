@@ -18,6 +18,6 @@ func (AliasHandler) Validate(context string, g *Guider) error {
 
 func (AliasHandler) Handle(context string, g *Guider) HandlerRsp {
 	findAry := aliasRegexp.FindStringSubmatch(context)
-	g.Alias[AliasSymbol(findAry[1])] = AliasMapSymbol(findAry[2])
+	g.StoreAlias(AliasSymbol(findAry[1]), AliasMapSymbol(findAry[2]))
 	return HandlerRsp{Context: context}
 }

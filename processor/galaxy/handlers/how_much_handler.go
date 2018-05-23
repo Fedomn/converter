@@ -19,7 +19,7 @@ func (HowMuchHandler) Validate(context string, g *Guider) error {
 	findAry := howMuchRegexp.FindStringSubmatch(context)
 	aliasAry := strings.Split(findAry[1], " ")
 	for _, each := range aliasAry {
-		if _, ok := g.Alias[AliasSymbol(each)]; !ok {
+		if _, ok := g.LoadAlias(AliasSymbol(each)); !ok {
 			return UnknownErr
 		}
 	}

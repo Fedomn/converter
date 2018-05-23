@@ -20,19 +20,20 @@ func (HowManyUnitHandler) Validate(context string, g *Guider) error {
 	goodsUnitSymbol, aliasStr, goodsSymbol := findAry[1], findAry[2], findAry[3]
 
 	// 验证商品合法性
-	if _, ok := g.Goods[GoodsSymbol(goodsSymbol)]; !ok {
+	if _, ok := g.LoadGoods(GoodsSymbol(goodsSymbol)); !ok {
 		return UnknownErr
 	}
 
 	// 验证商品单位合法性
-	if g.Goods[GoodsSymbol(goodsSymbol)].Unit != GoodsUnitSymbol(goodsUnitSymbol) {
+	info, _ := g.LoadGoods(GoodsSymbol(goodsSymbol))
+	if info.Unit != GoodsUnitSymbol(goodsUnitSymbol) {
 		return UnknownErr
 	}
 
 	// 验证Alias合法性
 	aliasAry := strings.Split(aliasStr, " ")
 	for _, each := range aliasAry {
-		if _, ok := g.Alias[AliasSymbol(each)]; !ok {
+		if _, ok := g.LoadAlias(AliasSymbol(each)); !ok {
 			return UnknownErr
 		}
 	}
@@ -51,7 +52,8 @@ func (HowManyUnitHandler) Handle(context string, g *Guider) HandlerRsp {
 	}
 
 	// 计算总价
-	totalPrice := float64(g.Goods[goodsSymbol].Price) * float64(goodsNum)
+	info, _ := g.LoadGoods(goodsSymbol)
+	totalPrice := float64(info.Price) * float64(goodsNum)
 
 	answer := fmt.Sprintf("%s %s is %.0f %s", aliasStr, goodsSymbol, totalPrice, goodsUnitSymbol)
 

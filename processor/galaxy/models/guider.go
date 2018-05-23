@@ -1,11 +1,13 @@
 package models
 
-import "fedomn/converter/calculator"
+import (
+	"fedomn/converter/calculator"
+	"sync"
+)
 
 type (
 	AliasSymbol    string
 	AliasMapSymbol string
-	Alias          map[AliasSymbol]AliasMapSymbol
 
 	GoodsPrice      float64
 	GoodsSymbol     string
@@ -15,11 +17,10 @@ type (
 		Price  GoodsPrice
 		Unit   GoodsUnitSymbol
 	}
-	Goods map[GoodsSymbol]GoodsInfo
 
 	Guider struct {
-		Alias      Alias
-		Goods      Goods
+		Alias      sync.Map
+		Goods      sync.Map
 		Handlers   []Handler
 		Calculator calculator.Calculator
 	}
@@ -53,4 +54,26 @@ func (g *Guider) Process(context string) string {
 		return rsp.Err.Error()
 	}
 	return rsp.Res
+}
+
+func (g *Guider) StoreAlias(aliasSymbol AliasSymbol, mapSymbol AliasMapSymbol) {
+	g.Alias.Store(aliasSymbol, mapSymbol)
+}
+
+func (g *Guider) LoadAlias(aliasSymbol AliasSymbol) (AliasMapSymbol, bool) {
+	if value, ok := g.Alias.Load(aliasSymbol); ok {
+		return value.(AliasMapSymbol), true
+	}
+	return "", false
+}
+
+func (g *Guider) StoreGoods(goodsSymbol GoodsSymbol, info GoodsInfo) {
+	g.Goods.Store(goodsSymbol, info)
+}
+
+func (g *Guider) LoadGoods(goodsSymbol GoodsSymbol) (GoodsInfo, bool) {
+	if value, ok := g.Goods.Load(goodsSymbol); ok {
+		return value.(GoodsInfo), true
+	}
+	return GoodsInfo{}, false
 }

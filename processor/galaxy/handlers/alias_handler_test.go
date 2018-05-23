@@ -38,6 +38,7 @@ func TestAliasHandlerHandle(t *testing.T) {
 		handleRsp := aliasHandler.Handle(tt.context, guilder)
 		msg := fmt.Sprintf("contxt: %s", tt.context)
 		Equals(t, msg, nil, handleRsp.Err)
-		Equals(t, msg, tt.AliasMapSymbol, guilder.Alias[tt.aliasSymbol])
+		mapSymbol, _ := guilder.LoadAlias(tt.aliasSymbol)
+		Equals(t, msg, tt.AliasMapSymbol, mapSymbol)
 	}
 }

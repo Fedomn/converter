@@ -5,6 +5,7 @@ import (
 	. "fedomn/converter/processor/galaxy/handlers"
 	. "fedomn/converter/processor/galaxy/models"
 	"os"
+	"sync"
 	"testing"
 )
 
@@ -22,8 +23,8 @@ func TestMain(m *testing.M) {
 	howManyUnitHandler = HowManyUnitHandler{}
 
 	guilder = &Guider{
-		Alias:      make(Alias),
-		Goods:      make(Goods),
+		Alias:      sync.Map{},
+		Goods:      sync.Map{},
 		Handlers:   make([]Handler, 0),
 		Calculator: roman.DefaultCalculator,
 	}

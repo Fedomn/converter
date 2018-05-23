@@ -1,8 +1,11 @@
 package dispatcher
 
 import (
+	"crypto/rand"
+	"encoding/base64"
 	"fedomn/converter/processor"
 	"fmt"
+	"strings"
 )
 
 type (
@@ -22,6 +25,7 @@ type (
 	JobOutputQueue chan JobOutput
 
 	Worker struct {
+		id             string
 		processor      processor.Processor
 		quit           chan bool
 		jobInputQueue  JobInputQueue
@@ -30,11 +34,20 @@ type (
 	}
 )
 
-func newWorker(p processor.Processor) Worker {
+func genId() string {
+	b := make([]byte, 8)
+	rand.Read(b)
+	s := base64.URLEncoding.EncodeToString(b)
+	return strings.Trim(s, " ")
+}
+
+func newWorker(jobType JobType, p processor.Processor) Worker {
 	return Worker{
+		id:             genId(),
 		processor:      p,
 		jobInputQueue:  make(JobInputQueue, 10),
 		jobOutputQueue: make(JobOutputQueue, 10),
+		jobType:        jobType,
 		quit:           make(chan bool),
 	}
 }
@@ -44,6 +57,7 @@ func (w Worker) Start() {
 		for {
 			select {
 			case job := <-w.jobInputQueue:
+				fmt.Printf("\033[32mWorker Log:\033[0m %v got job %+v\n", w.id, job)
 				output := w.processor.Process(job.Context)
 				w.jobOutputQueue <- JobOutput{job.Context, output, w.jobType}
 			case <-w.quit:

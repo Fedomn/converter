@@ -16,9 +16,9 @@ func init() {
 		workerMap: make(map[JobType][]Worker),
 	}
 	DefaultDispatcher.workerMap[GalaxyJob] = []Worker{
-		newWorker(galaxy.DefaultGuider),
-		newWorker(galaxy.DefaultGuider),
-		newWorker(galaxy.DefaultGuider),
+		newWorker(GalaxyJob, galaxy.DefaultGuider),
+		newWorker(GalaxyJob, galaxy.DefaultGuider),
+		newWorker(GalaxyJob, galaxy.DefaultGuider),
 	}
 }
 

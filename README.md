@@ -42,7 +42,7 @@ go run main.go
 	 * Galaxy中输入信息都有独立规则，通过构造handler数组，遍历匹配处理。
 	 * Galaxy中输入信息可分为Command与Question，Command会更新GalaxyGuider内部状态，Question需要Command提供的信息进行处理。
 	 * 计算Command里信息，需要提供计算资源，通过注入Calculator到GalaxyGuider
- * 把问题处理抽象成一个Job，每种Worker包含一个Processor，通过调度器，实现不同种类信息的同时处理。
+ * 把问题处理抽象成一个Job，每个Worker都包含一个Processor，通过调度器，实现多Worker的并发处理。
 
 ## 整理设计
 

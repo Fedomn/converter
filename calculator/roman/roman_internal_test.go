@@ -1,9 +1,10 @@
 package roman
 
 import (
-	. "fedomn/converter/util"
 	"fmt"
 	"testing"
+
+	. "github.com/fedomn/converter/util"
 )
 
 var rc = initRomanCalculator()

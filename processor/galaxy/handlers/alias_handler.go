@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	. "fedomn/converter/processor/galaxy/models"
 	"regexp"
+
+	. "github.com/fedomn/converter/processor/galaxy/models"
 )
 
 var aliasRegexp = regexp.MustCompile(`^(\S+) is (\S)$`)

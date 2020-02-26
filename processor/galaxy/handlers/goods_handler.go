@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	. "fedomn/converter/processor/galaxy/models"
 	"regexp"
 	"strconv"
 	"strings"
+
+	. "github.com/fedomn/converter/processor/galaxy/models"
 )
 
 var goodsRegexp = regexp.MustCompile(`^(.+) (\S+) is (\d+) (\S+)$`)

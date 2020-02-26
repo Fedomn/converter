@@ -1,7 +1,8 @@
 package util_test
 
 import (
-	. "fedomn/converter/util"
+	. "github.com/fedomn/converter/util"
+
 	"fmt"
 	"testing"
 )

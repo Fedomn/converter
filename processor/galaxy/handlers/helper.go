@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	. "fedomn/converter/processor/galaxy/models"
 	"strings"
+
+	. "github.com/fedomn/converter/processor/galaxy/models"
 )
 
 func convertAliasMapSymbol(alias []AliasSymbol, g *Guider) []AliasMapSymbol {

@@ -1,10 +1,11 @@
 package roman_test
 
 import (
-	. "fedomn/converter/calculator/roman"
-	. "fedomn/converter/util"
 	"fmt"
 	"testing"
+
+	. "github.com/fedomn/converter/calculator/roman"
+	. "github.com/fedomn/converter/util"
 )
 
 var rc = DefaultCalculator

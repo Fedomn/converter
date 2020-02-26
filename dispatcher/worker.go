@@ -3,9 +3,10 @@ package dispatcher
 import (
 	"crypto/rand"
 	"encoding/base64"
-	"fedomn/converter/processor"
 	"fmt"
 	"strings"
+
+	"github.com/fedomn/converter/processor"
 )
 
 type (

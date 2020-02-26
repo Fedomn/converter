@@ -1,10 +1,11 @@
 package main_test
 
 import (
-	. "fedomn/converter/dispatcher"
-	. "fedomn/converter/util"
 	"fmt"
 	"testing"
+
+	. "github.com/fedomn/converter/dispatcher"
+	. "github.com/fedomn/converter/util"
 )
 
 func TestGalaxyGuider(t *testing.T) {

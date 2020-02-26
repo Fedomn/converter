@@ -2,13 +2,14 @@ package main
 
 import (
 	"bufio"
-	. "fedomn/converter/dispatcher"
-	"fedomn/converter/util"
 	"flag"
 	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
+
+	. "github.com/fedomn/converter/dispatcher"
+	"github.com/fedomn/converter/util"
 )
 
 func parseArgsAndFile() {

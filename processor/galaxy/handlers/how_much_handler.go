@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	. "fedomn/converter/processor/galaxy/models"
 	"fmt"
 	"regexp"
 	"strings"
+
+	. "github.com/fedomn/converter/processor/galaxy/models"
 )
 
 var howMuchRegexp = regexp.MustCompile(`^how much is (.+) \?$`)

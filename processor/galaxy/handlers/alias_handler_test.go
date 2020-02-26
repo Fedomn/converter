@@ -1,10 +1,11 @@
 package handlers_test
 
 import (
-	. "fedomn/converter/processor/galaxy/models"
-	. "fedomn/converter/util"
 	"fmt"
 	"testing"
+
+	. "github.com/fedomn/converter/processor/galaxy/models"
+	. "github.com/fedomn/converter/util"
 )
 
 func TestAliasHandlerValidate(t *testing.T) {

@@ -1,10 +1,11 @@
 package galaxy
 
 import (
-	"fedomn/converter/calculator/roman"
-	. "fedomn/converter/processor/galaxy/handlers"
-	. "fedomn/converter/processor/galaxy/models"
 	"sync"
+
+	"github.com/fedomn/converter/calculator/roman"
+	. "github.com/fedomn/converter/processor/galaxy/handlers"
+	. "github.com/fedomn/converter/processor/galaxy/models"
 )
 
 var DefaultGuider *Guider

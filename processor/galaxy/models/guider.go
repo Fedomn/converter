@@ -1,8 +1,9 @@
 package models
 
 import (
-	"fedomn/converter/calculator"
 	"sync"
+
+	"github.com/fedomn/converter/calculator"
 )
 
 type (

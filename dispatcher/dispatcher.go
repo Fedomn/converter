@@ -1,8 +1,9 @@
 package dispatcher
 
 import (
-	"fedomn/converter/processor/galaxy"
 	"reflect"
+
+	"github.com/fedomn/converter/processor/galaxy"
 )
 
 const (
